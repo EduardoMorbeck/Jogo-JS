@@ -1,0 +1,48 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.game-board{
+    width: 80%;
+    height: 500px;
+    margin: 0 auto;
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+}
+.pipe{
+    position: absolute;
+    bottom: 0;
+    width: 80px;
+    animation: pipe-animation 2s infinite linear;
+}
+@keyframes pipe-animation {
+    from {
+        right: -20%;
+    }to{
+        right: 100%;
+    }
+}
+.personagem{
+    width: 150px;
+    position: absolute;
+    bottom: 0;
+}
+.jump{
+    animation: jump 500ms infinite ease-out;
+}
+@keyframes jump {
+    0%{
+        bottom: 0;
+    }40%{
+        bottom: 180px;
+    }50%{
+        bottom: 180px;
+    }60%{
+        bottom: 180px;
+    }
+    100%{
+        bottom: 0;
+    }
+}
