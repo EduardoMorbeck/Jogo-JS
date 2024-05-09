@@ -1,30 +1,107 @@
-const perso = document.querySelector(".personagem")
-const pipe = document.querySelector(".pipe")
+const mario = document.querySelector('.mario')
+const pipe = document.querySelector('.pipe')
+let score = 0
 
-const jump = () => {
-    perso.classList.add('jump')
+const start = document.querySelector('.start')
+const gameOver = document.querySelector('.game-over')
 
-    setTimeout( () => {
-        perso.classList.remove('jump')
-    }, 500)
+audioStart = new Audio('./src/audio/audio_theme.mp3')
+audioGameOver = new Audio('./src/audio/audio_gameover.mp3')
+
+
+const startGame = () => {
+  pipe.classList.add('pipe-animation')
+  start.style.display = 'none'
+
+  // audio
+  audioStart.play()
 }
 
-const loop = setInterval( () => {
+const restartGame = () => {
+  gameOver.style.display = 'none'
+  pipe.style.left = ''
+  pipe.style.right = '0'
+  mario.src = './img/mario.gif'
+  mario.style.width = '150px'
+  mario.style.bottom = '0'
+  score = 0
+
+  start.style.display = 'none'
+
+  audioGameOver.pause()
+  audioGameOver.currentTime = 0;
+
+  audioStart.play()
+  audioStart.currentTime = 0;
+
+}
+
+const jump = () => {
+  mario.classList.add('jump')
+  score ++
+
+  setTimeout(() => {
+    mario.classList.remove('jump')
+  }, 800)
+}
+
+const loop = () => {
+  setInterval(() => {
     const pipePosition = pipe.offsetLeft
-    const personPosition = +window.getComputedStyle(perso).bottom.replace('px','')
-    if(pipePosition <= 120 && pipePosition > 0 && personPosition < 80){
-        pipe.style.animation = "none"
-        pipe.style.left = `${pipePosition}px`
-        perso.style.animation = "none"
-        perso.style.bottom = `${personPosition}px`
+    const marioPosition = window
+      .getComputedStyle(mario)
+      .bottom.replace('px', ' ')
 
-        perso.src = './imagens/game-over.png'
-        perso.style.width = '75px'
-        perso.style.marginLeft = '50px'
+    if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
+      pipe.classList.remove('.pipe-animation')
+      pipe.style.left = `${pipePosition}px`
 
-        clearInterval(loop)
+      mario.classList.remove('.jump')
+      mario.style.bottom = `${marioPosition}px`
+
+      mario.src = './img/game-over.png'
+      mario.style.width = '80px'
+      mario.style.marginLeft = '50px'
+      
+      
+      function stopAudioStart() {
+        audioStart.pause()
+      }
+      stopAudioStart()
+      
+      audioGameOver.play()
+      
+      function stopAudio() {
+        audioGameOver.pause()
+      }
+      setTimeout(stopAudio, 7000)
+      
+      gameOver.style.display = 'flex'
+      document.getElementById('score').textContent = score;
+      
+      clearInterval(loop)
     }
+  }, 10)
+}
 
-}, 100)
+loop()
 
-document.addEventListener('keydown', jump)
+document.addEventListener('keypress', e => {
+  const tecla = e.key
+  if (tecla === ' ') {
+    jump()
+  }
+})
+
+document.addEventListener('touchstart', e => {
+  if (e.touches.length) {
+    jump() 
+  }
+})
+
+document.addEventListener('keypress', e => {
+  const tecla = e.key
+  if (tecla === 'Enter') {
+    startGame()
+  }
+})
