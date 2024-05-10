@@ -1,6 +1,7 @@
 const mario = document.querySelector('.mario')
 const pipe = document.querySelector('.pipe')
 let score = 0
+let best = 0
 let isGameOver = false
 
 const start = document.querySelector('.start')
@@ -80,6 +81,8 @@ const loop = () => {
       
       gameOver.style.display = 'flex'
       document.getElementById('score').textContent = score;
+      document.getElementById('best').textContent = best;
+      score >= best ? best = score:
       
       clearInterval(loop)
     }
