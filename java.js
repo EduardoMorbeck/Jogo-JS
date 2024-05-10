@@ -1,23 +1,24 @@
 const mario = document.querySelector('.mario')
 const pipe = document.querySelector('.pipe')
 let score = 0
+let isGameOver = false
 
 const start = document.querySelector('.start')
 const gameOver = document.querySelector('.game-over')
 
-audioStart = new Audio('./src/audio/audio_theme.mp3')
-audioGameOver = new Audio('./src/audio/audio_gameover.mp3')
+let audioStart = document.getElementById('audioTheme')
+let audioGameOver = document.getElementById('audioGameOver')
 
 
 const startGame = () => {
   pipe.classList.add('pipe-animation')
   start.style.display = 'none'
 
-  // audio
   audioStart.play()
 }
 
 const restartGame = () => {
+  isGameOver = false
   gameOver.style.display = 'none'
   pipe.style.left = ''
   pipe.style.right = '0'
@@ -53,6 +54,7 @@ const loop = () => {
       .bottom.replace('px', ' ')
 
     if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
+      isGameOver = true
       pipe.classList.remove('.pipe-animation')
       pipe.style.left = `${pipePosition}px`
 
@@ -86,22 +88,25 @@ const loop = () => {
 
 loop()
 
-document.addEventListener('keypress', e => {
+document.addEventListener('keydown', e => {
   const tecla = e.key
-  if (tecla === ' ') {
+  if (tecla === ' ' && !isGameOver) {
     jump()
   }
 })
 
 document.addEventListener('touchstart', e => {
-  if (e.touches.length) {
+  if (e.touches.length && !isGameOver) {
     jump() 
   }
 })
 
+
 document.addEventListener('keypress', e => {
   const tecla = e.key
-  if (tecla === 'Enter') {
+  if (tecla === 'Enter' && !isGameOver) {
     startGame()
+  } else if (tecla === 'Enter' && isGameOver){
+    restartGame()
   }
 })
