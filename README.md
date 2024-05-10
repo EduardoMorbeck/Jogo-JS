@@ -1,4 +1,4 @@
-<h1>Mini Game do Mário 
-<p>criado apenas Javascript, HMTL e CSS. O objetivo é pular por cima dos obstáculos e alcançar a maior pontuação possível.
-<p>ENTER = começar e reiniciar o jogo
-<p>ESPAÇO = pula
+<h1>Mini Game do Mário</h1>
+<p>criado apenas Javascript, HMTL e CSS. O objetivo é pular por cima dos obstáculos e alcançar a maior pontuação possível.</p>
+<p>ENTER = começar e reiniciar o jogo</p>
+<p>ESPAÇO = pula</p>
