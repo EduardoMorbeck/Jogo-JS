@@ -60,7 +60,7 @@ const loop = () => {
       .getComputedStyle(mario)
       .bottom.replace('px', ' ')
 
-    if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
+    if (pipePosition <= 100 && pipePosition > 60 && marioPosition < 70) {
       isGameStart = false
       pipe.classList.remove('.pipe-animation')
       pipe.style.left = `${pipePosition}px`
