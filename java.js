@@ -20,6 +20,10 @@ const startGame = () => {
   start.style.display = 'none'
 
   audioStart.play()
+
+  setTimeout(() => {
+    audioStart.play()
+  }, 8800)
 }
 
 const restartGame = () => {
@@ -72,11 +76,7 @@ const loop = () => {
       mario.style.width = '80px'
       mario.style.marginLeft = '50px'
       
-      
-      function stopAudioStart() {
-        audioStart.pause()
-      }
-      stopAudioStart()
+      audioStart.pause()
       
       audioGameOver.play()
       
