@@ -45,7 +45,7 @@ const restartGame = () => {
 const jump = () => {
   if (marioPosition <= 0) {
     mario.classList.add('jump')
-    score++
+    score ++
 
     setTimeout(() => {
       mario.classList.remove('jump')
@@ -60,7 +60,7 @@ const loop = () => {
       .getComputedStyle(mario)
       .bottom.replace('px', ' ')
 
-    if (pipePosition <= 100 && pipePosition > 60 && marioPosition < 70) {
+    if (pipePosition <= 110 && pipePosition > 60 && marioPosition < 70) {
       isGameStart = false
       pipe.classList.remove('.pipe-animation')
       pipe.style.left = `${pipePosition}px`

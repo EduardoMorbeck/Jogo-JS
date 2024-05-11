@@ -14,8 +14,6 @@
     background: linear-gradient(#87CEEB, #E0F6FF);
 }
 .start{
-    right: 40%;
-    top: 55%;
     background: green;
     color: white;
     font-weight: bold;
@@ -23,9 +21,12 @@
     border: none;
     padding: 1rem;
     position: absolute;
+    left: 50%;
+    top: 55%;
     cursor: pointer;
     z-index: 1;
     border-radius: 5px;
+    transform: translateX(-50%);
 }
 .restart{
     background: green;
