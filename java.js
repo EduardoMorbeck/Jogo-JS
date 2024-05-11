@@ -2,7 +2,10 @@ const mario = document.querySelector('.mario')
 const pipe = document.querySelector('.pipe')
 let score = 0
 let best = 0
-let isGameOver = false
+let isGameStart = false
+const marioPosition = window
+      .getComputedStyle(mario)
+      .bottom.replace('px', ' ')
 
 const start = document.querySelector('.start')
 const gameOver = document.querySelector('.game-over')
@@ -12,6 +15,7 @@ let audioGameOver = document.getElementById('audioGameOver')
 
 
 const startGame = () => {
+  isGameStart = true
   pipe.classList.add('pipe-animation')
   start.style.display = 'none'
 
@@ -19,7 +23,7 @@ const startGame = () => {
 }
 
 const restartGame = () => {
-  isGameOver = false
+  isGameStart = true
   gameOver.style.display = 'none'
   pipe.style.left = ''
   pipe.style.right = '0'
@@ -39,12 +43,14 @@ const restartGame = () => {
 }
 
 const jump = () => {
-  mario.classList.add('jump')
-  score ++
+  if (marioPosition <= 0) {
+    mario.classList.add('jump')
+    score++
 
-  setTimeout(() => {
-    mario.classList.remove('jump')
-  }, 800)
+    setTimeout(() => {
+      mario.classList.remove('jump')
+    }, 800)
+  }
 }
 
 const loop = () => {
@@ -55,7 +61,7 @@ const loop = () => {
       .bottom.replace('px', ' ')
 
     if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
-      isGameOver = true
+      isGameStart = false
       pipe.classList.remove('.pipe-animation')
       pipe.style.left = `${pipePosition}px`
 
@@ -74,11 +80,6 @@ const loop = () => {
       
       audioGameOver.play()
       
-      function stopAudio() {
-        audioGameOver.pause()
-      }
-      setTimeout(stopAudio, 7000)
-      
       gameOver.style.display = 'flex'
       document.getElementById('score').textContent = score;
       document.getElementById('best').textContent = best;
@@ -93,23 +94,22 @@ loop()
 
 document.addEventListener('keydown', e => {
   const tecla = e.key
-  if (tecla === ' ' && !isGameOver) {
+  if (tecla === ' '  && isGameStart ) {
     jump()
   }
 })
 
 document.addEventListener('touchstart', e => {
-  if (e.touches.length && !isGameOver) {
+  if (e.touches.length  && isGameStart ) {
     jump() 
   }
 })
 
-
 document.addEventListener('keypress', e => {
   const tecla = e.key
-  if (tecla === 'Enter' && !isGameOver) {
+  if (tecla === 'Enter' && isGameStart ) {
     startGame()
-  } else if (tecla === 'Enter' && isGameOver){
+  } else if (tecla === 'Enter' && !isGameStart ){
     restartGame()
   }
 })
